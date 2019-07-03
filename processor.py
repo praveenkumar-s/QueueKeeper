@@ -62,6 +62,15 @@ def get_outgoing_items(outgoing):
         returnable_outgoing.append(items)
     return returnable_outgoing
 
+def balance_master(master_data):
+    for items in master_data.keys():
+        actual_builds = master_data[items]['incoming']
+        tested_builds = master_data[items]['outgoing']
+        master_data[items]['missed']=[]
+        for build in actual_builds:
+            if(build not in tested_builds):
+                master_data[items]['missed'].append(build)
+    return master_data
 
 if __name__ == "__main__":
 
@@ -77,5 +86,5 @@ if __name__ == "__main__":
         MASTER_DATA[outgoing]['outgoing'] = get_outgoing_items(outgoing)
 
     print(MASTER_DATA)
-
+    MASTER_DATA=balance_master(MASTER_DATA)
     json.dump(MASTER_DATA, open('output.txt', 'w+'))
