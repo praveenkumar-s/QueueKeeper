@@ -38,6 +38,7 @@ def get_incoming_items(incoming, outgoing):
     RAM = build_map_store.read_data()
     for items in RAM.values():
         returnable_incoming.append(items)
+    return returnable_incoming
 
 
 def get_outgoing_items(outgoing):
